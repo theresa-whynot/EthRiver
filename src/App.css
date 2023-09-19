@@ -1,0 +1,60 @@
+.brandimage:hover + .brandname,
+.brandname:hover {
+    color: #0D99FF !important;
+}
+
+.navoptions .nav-link {
+    color: black !important;
+}
+
+.navoptions .nav-link:hover {
+    color: #0D99FF !important;
+}
+
+@media (max-width: 768px) {
+    .nav-link {
+        background-color: white !important;
+        border: 1px solid #0D99FF !important;
+        border-radius: 4px !important;
+        color: black !important;
+        padding: 10px !important;
+        width: 150px !important;
+    }
+}
+
+.getTestEthButton:hover {
+    color: #0D99FF !important;
+}
+
+
+@media (max-width: 768px) {
+    .getEtherButton {
+        margin-top: 0px !important;
+    }
+}
+
+.donateEtherButton:hover {
+    color: #0D99FF !important;
+}
+
+.money-font-balance{
+    color: mediumpurple;
+    font-weight: bold
+}
+
+.money-font-donations {
+    color: green;
+    font-weight: bold
+}
+
+@media (max-width: 1200px) {
+    .desktop-cards {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .mobile-cards {
+        display: none;
+    }
+}
