@@ -29,18 +29,13 @@ class FaucetDrip extends Component {
 
         try {
             const accounts = await web3.eth.getAccounts();
+            const storedTimestamps = JSON.parse(localStorage.getItem('lastDripTimestamp')) || {};
 
-            const { lastDripTimestamp } = this.state;
+            const lastDripTimestamp = storedTimestamps[accounts[0]] || 0;
 
             console.log('Before submission:', lastDripTimestamp);
 
-            if (!lastDripTimestamp[accounts[0]]) {
-                lastDripTimestamp[accounts[0]] = 0;
-            }
-
-            console.log('After initialization:', lastDripTimestamp);
-
-            if (lastDripTimestamp[accounts[0]] && (Date.now() - lastDripTimestamp[accounts[0]] < 43200000)) {
+            if (lastDripTimestamp && (Date.now() - lastDripTimestamp < 43200000)) {
                 throw new Error('Address can only receive drip once every 12 hours.');
             }
 
@@ -63,15 +58,9 @@ class FaucetDrip extends Component {
 
             console.log('After submission to contract:', lastDripTimestamp);
 
-
-            this.setState(prevState => ({
-                lastDripTimestamp: {
-                    ...prevState.lastDripTimestamp,
-                    [accounts[0]]: Date.now(),
-                },
-            }), () => {
-                console.log('After setState:', this.state.lastDripTimestamp);
-            });
+            // Update the local storage with the new timestamp
+            storedTimestamps[accounts[0]] = Date.now();
+            localStorage.setItem('lastDripTimestamp', JSON.stringify(storedTimestamps));
 
             this.setState({ successMessage: `1 test sepolia gwei was submitted to your account successfully!` });
         } catch (err) {
